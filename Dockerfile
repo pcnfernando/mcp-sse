@@ -20,7 +20,7 @@ RUN uv sync --frozen --no-dev --no-editable
 COPY . .
 
 # Set environment variable for ANTHROPIC_API_KEY
-ENV ANTHROPIC_API_KEY=your_api_key_here
+ENV ANTHROPIC_API_KEY=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
 
 EXPOSE 8080
 
