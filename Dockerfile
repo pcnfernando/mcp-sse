@@ -2,6 +2,8 @@
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python3.13-slim AS uv
 
+USER 10014
+
 # Set the working directory
 WORKDIR /app
 
