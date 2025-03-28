@@ -5,7 +5,7 @@ USER root
 RUN mkdir -p /tmp/.cache/uv && chown -R 10014:10014 /tmp/.cache/uv
 
 # Switch back to non-root user
-USER 10014
+# USER 10014
 ENV UV_CACHE_DIR=/tmp/.cache/uv
 
 WORKDIR /app
