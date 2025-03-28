@@ -102,7 +102,7 @@ Forecast: {period['detailedForecast']}
 
 def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlette:
     """Create a Starlette application that can server the provied mcp server with SSE."""
-    sse = SseServerTransport("/messages")
+    sse = SseServerTransport("/my-integrations/mcp-sse-mm/v1.0/messages/")
 
     async def handle_sse(request: Request) -> None:
         async with sse.connect_sse(
