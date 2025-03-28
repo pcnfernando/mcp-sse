@@ -5,7 +5,7 @@ USER root
 RUN mkdir -p /tmp/.cache/uv && chown -R 10014:10014 /tmp/.cache/uv
 
 # Switch back to non-root user
-# USER 10014
+USER 10014
 ENV UV_CACHE_DIR=/tmp/.cache/uv
 
 WORKDIR /app
@@ -14,7 +14,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 # Install dependencies using uv with cache enabled
-RUN --mount=type=cache,target=/tmp/.cache/uv uv sync --frozen --no-dev --no-editable
+RUN uv sync --frozen --no-dev --no-editable
 
 # Copy the rest of the application files
 COPY . .
