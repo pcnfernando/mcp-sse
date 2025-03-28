@@ -5,8 +5,7 @@ FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS uv
 USER 10014
 
 ENV UV_CACHE_DIR=/tmp/.cache/uv
-RUN mkdir -p $UV_CACHE_DIR
-
+RUN mkdir -p $UV_CACHE_DIR && chmod -R 777 $UV_CACHE_DIR
 # Set the working directory
 WORKDIR /app
 
