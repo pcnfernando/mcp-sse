@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 
 load_dotenv()  # load environment variables from .env
 
+CHOREO_API_KEY = os.environ.get("CHOREO_API_KEY")
+
 class MCPClient:
     def __init__(self):
         # Initialize session and client objects
@@ -21,16 +23,23 @@ class MCPClient:
 
     async def connect_to_sse_server(self, server_url: str):
         """Connect to an MCP server running with SSE transport"""
+
+        headers = {}
+        if CHOREO_API_KEY:
+            headers["api-key"] = CHOREO_API_KEY
+            print(f"Using API key authentication for Choreo")
+        else:
+            print("Warning: CHOREO_API_KEY not set in environment variables")
+
         # Store the context managers so they stay alive
-        self._streams_context = sse_client(url=server_url)
+        self._streams_context = sse_client(url=server_url, headers=headers)
         streams = await self._streams_context.__aenter__()
 
         self._session_context = ClientSession(*streams)
-        self.session: ClientSession = await self._session_context.__aenter__()
 
+        self.session: ClientSession = await self._session_context.__aenter__()
         # Initialize
         await self.session.initialize()
-
         # List available tools to verify connection
         print("Initialized SSE client...")
         print("Listing tools...")
